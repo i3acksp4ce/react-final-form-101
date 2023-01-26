@@ -13,5 +13,5 @@ module.exports = {
     placeholderOpacity: false,
     backdropOpacity: false,
   },
-  plugins: [],
+  plugins: [require('daisyui')],
 }
