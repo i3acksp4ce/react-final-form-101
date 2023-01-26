@@ -1,6 +1,7 @@
 import { Card } from '@/shared-components/Card'
+import { RenderCount } from '@/shared-components/RenderCount'
 import { When } from '@/shared-components/When'
-import { Form, Field } from 'react-final-form'
+import { Form, Field, FormSpy, type FormProps } from 'react-final-form'
 import { minValue, required } from '../validators'
 
 interface IFormData {
@@ -8,7 +9,9 @@ interface IFormData {
   inputB: string
 }
 
-export const Form101 = () => {
+type PartalFormProps = Pick<FormProps, 'subscription'>
+
+export const FormWithSupscription = ({ subscription }: PartalFormProps) => {
   function isValidWhenSubmit(values: IFormData) {
     if (values.inputB !== 'test') {
       return { inputB: 'inputB must be "test"' }
@@ -25,9 +28,10 @@ export const Form101 = () => {
 
   return (
     <>
-      <Card detail={{ title: 'Form 101' }}>
+      <div>
         <Form
           onSubmit={onSubmit}
+          subscription={subscription}
           render={({ handleSubmit, submitting, pristine, form }) => {
             return (
               <>
@@ -35,7 +39,7 @@ export const Form101 = () => {
                   <div>
                     <Field name="inputA" validate={required}>
                       {({ input, meta }) => (
-                        <div className="form-control w-full max-w-xs">
+                        <div className="form-control w-full max-w-xs relative">
                           <label className="label">
                             <span className="label-text">input A</span>
                           </label>
@@ -52,13 +56,14 @@ export const Form101 = () => {
                               </span>
                             </When>
                           </label>
+                          <RenderCount />
                         </div>
                       )}
                     </Field>
 
                     <Field name="inputB" validate={minValue(3)}>
                       {({ input, meta }) => (
-                        <div className="form-control w-full max-w-xs">
+                        <div className="form-control w-full max-w-xs relative">
                           <label className="label">
                             <span className="label-text">
                               input B (validate when submit)
@@ -81,6 +86,7 @@ export const Form101 = () => {
                               </span>
                             </When>
                           </label>
+                          <RenderCount />
                         </div>
                       )}
                     </Field>
@@ -106,12 +112,21 @@ export const Form101 = () => {
                       Restart
                     </button>
                   </div>
+
+                  <FormSpy subscription={{ values: true }}>
+                    {({ values }) => (
+                      <pre className="relative">
+                        <RenderCount />
+                        {JSON.stringify(values, null, 2)}
+                      </pre>
+                    )}
+                  </FormSpy>
                 </form>
               </>
             )
           }}
         />
-      </Card>
+      </div>
     </>
   )
 }

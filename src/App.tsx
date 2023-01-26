@@ -1,5 +1,5 @@
 import { Form101 } from './components/Form/Form101'
-import { FormSpy101 } from './components/FormSpy/FormSpy101'
+import { MainForm } from './components/Subscriptions/MainForm'
 import Sample from './components/Sample'
 
 function App() {
@@ -7,13 +7,13 @@ function App() {
     <>
       <div className="flex my-10 gap-y-6 flex-col items-center">
         <Form101 />
-        {/* <FormSpy101 /> */}
+        <MainForm />
 
-        <Sample>
+        {/* <Sample>
           Sample
           <Sample.Title>Sample title</Sample.Title>
           <Sample.Body>Sample body</Sample.Body>
-        </Sample>
+        </Sample> */}
       </div>
     </>
   )
