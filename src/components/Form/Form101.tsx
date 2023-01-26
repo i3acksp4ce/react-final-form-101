@@ -1,7 +1,19 @@
 import { Card } from '@/shared-components/Card'
 import { When } from '@/shared-components/When'
 import { Form, Field } from 'react-final-form'
-import { minValue, required } from '../validators'
+import {
+  composeValidators,
+  minChar,
+  minValue,
+  mustBeNumber,
+  required,
+} from '../validators'
+
+/**
+ * custom field level validation
+ * ไม่ได้ใช้ เก็บไว้เฉย ๆ
+ * ref: https://codesandbox.io/s/trigger-validation-onblur-mx7vx?file=/src/index.js:1578-1595
+ */
 
 interface IFormData {
   inputA: string
@@ -33,7 +45,14 @@ export const Form101 = () => {
               <>
                 <form onSubmit={handleSubmit}>
                   <div>
-                    <Field name="inputA" validate={required}>
+                    <Field
+                      name="inputA"
+                      validate={composeValidators(
+                        required,
+                        minChar(3),
+                        mustBeNumber
+                      )}
+                    >
                       {({ input, meta }) => (
                         <div className="form-control w-full max-w-xs">
                           <label className="label">
@@ -56,13 +75,14 @@ export const Form101 = () => {
                       )}
                     </Field>
 
-                    <Field name="inputB" validate={minValue(3)}>
+                    <Field
+                      name="inputB"
+                      validate={composeValidators(required, minChar(3))}
+                    >
                       {({ input, meta }) => (
                         <div className="form-control w-full max-w-xs">
                           <label className="label">
-                            <span className="label-text">
-                              input B (validate when submit)
-                            </span>
+                            <span className="label-text">input B</span>
                           </label>
                           <input
                             {...input}
@@ -73,7 +93,7 @@ export const Form101 = () => {
                           <label className="label">
                             <When
                               is={
-                                (meta.error && meta.submitError) || meta.touched
+                                (meta.error || meta.submitError) && meta.touched
                               }
                             >
                               <span className="label-text-alt text-error">

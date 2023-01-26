@@ -7,7 +7,7 @@ function App() {
     <>
       <div className="flex my-10 gap-y-6 flex-col items-center">
         <Form101 />
-        <MainForm />
+        {/* <MainForm /> */}
 
         {/* <Sample>
           Sample
