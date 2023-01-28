@@ -1,4 +1,5 @@
 import { Card } from '@/shared-components/Card'
+import { InputAdapter } from '@/shared-components/final-form/InputAdapter'
 import { RenderCount } from '@/shared-components/RenderCount'
 import { When } from '@/shared-components/When'
 import { Form, Field, FormSpy, type FormProps } from 'react-final-form'
@@ -37,59 +38,19 @@ export const FormWithSupscription = ({ subscription }: PartalFormProps) => {
               <>
                 <form onSubmit={handleSubmit}>
                   <div>
-                    <Field name="inputA" validate={required}>
-                      {({ input, meta }) => (
-                        <div className="form-control w-full max-w-xs relative">
-                          <label className="label">
-                            <span className="label-text">input A</span>
-                          </label>
-                          <input
-                            {...input}
-                            type="text"
-                            placeholder="type here"
-                            className="input input-bordered w-full max-w-xs"
-                          />
-                          <label className="label">
-                            <When is={meta.error && meta.touched}>
-                              <span className="label-text-alt text-error">
-                                {meta.error}
-                              </span>
-                            </When>
-                          </label>
-                          <RenderCount />
-                        </div>
-                      )}
-                    </Field>
+                    <Field
+                      label="input A"
+                      name="inputA"
+                      validate={required}
+                      component={InputAdapter}
+                    />
 
-                    <Field name="inputB" validate={minValue(3)}>
-                      {({ input, meta }) => (
-                        <div className="form-control w-full max-w-xs relative">
-                          <label className="label">
-                            <span className="label-text">
-                              input B (validate when submit)
-                            </span>
-                          </label>
-                          <input
-                            {...input}
-                            type="text"
-                            placeholder="type here"
-                            className="input input-bordered w-full max-w-xs"
-                          />
-                          <label className="label">
-                            <When
-                              is={
-                                (meta.error && meta.submitError) || meta.touched
-                              }
-                            >
-                              <span className="label-text-alt text-error">
-                                {meta.error || meta.submitError}
-                              </span>
-                            </When>
-                          </label>
-                          <RenderCount />
-                        </div>
-                      )}
-                    </Field>
+                    <Field
+                      label="input B"
+                      name="inputB"
+                      validate={minValue(300)}
+                      component={InputAdapter}
+                    />
                   </div>
 
                   <div className="flex gap-x-4">

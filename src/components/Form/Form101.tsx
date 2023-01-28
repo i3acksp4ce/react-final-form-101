@@ -1,6 +1,8 @@
 import { Card } from '@/shared-components/Card'
+import { InputAdapter } from '@/shared-components/final-form/InputAdapter'
+import { RenderCount } from '@/shared-components/RenderCount'
 import { When } from '@/shared-components/When'
-import { Form, Field } from 'react-final-form'
+import { Form, Field, FormSpy } from 'react-final-form'
 import {
   composeValidators,
   minChar,
@@ -46,64 +48,22 @@ export const Form101 = () => {
                 <form onSubmit={handleSubmit}>
                   <div>
                     <Field
+                      label="Input A"
                       name="inputA"
                       validate={composeValidators(
                         required,
                         minChar(3),
                         mustBeNumber
                       )}
-                    >
-                      {({ input, meta }) => (
-                        <div className="form-control w-full max-w-xs">
-                          <label className="label">
-                            <span className="label-text">input A</span>
-                          </label>
-                          <input
-                            {...input}
-                            type="text"
-                            placeholder="type here"
-                            className="input input-bordered w-full max-w-xs"
-                          />
-                          <label className="label">
-                            <When is={meta.error && meta.touched}>
-                              <span className="label-text-alt text-error">
-                                {meta.error}
-                              </span>
-                            </When>
-                          </label>
-                        </div>
-                      )}
-                    </Field>
+                      component={InputAdapter}
+                    />
 
                     <Field
+                      label="Input A"
                       name="inputB"
                       validate={composeValidators(required, minChar(3))}
-                    >
-                      {({ input, meta }) => (
-                        <div className="form-control w-full max-w-xs">
-                          <label className="label">
-                            <span className="label-text">input B</span>
-                          </label>
-                          <input
-                            {...input}
-                            type="text"
-                            placeholder="type here"
-                            className="input input-bordered w-full max-w-xs"
-                          />
-                          <label className="label">
-                            <When
-                              is={
-                                (meta.error || meta.submitError) && meta.touched
-                              }
-                            >
-                              <span className="label-text-alt text-error">
-                                {meta.error || meta.submitError}
-                              </span>
-                            </When>
-                          </label>
-                        </div>
-                      )}
-                    </Field>
+                      component={InputAdapter}
+                    />
                   </div>
 
                   <div className="flex gap-x-4">
@@ -126,6 +86,15 @@ export const Form101 = () => {
                       Restart
                     </button>
                   </div>
+
+                  {/* <FormSpy subscription={{ values: true }}>
+                    {({ values }) => (
+                      <pre className="relative">
+                        <RenderCount />
+                        {JSON.stringify(values, null, 2)}
+                      </pre>
+                    )}
+                  </FormSpy> */}
                 </form>
               </>
             )
