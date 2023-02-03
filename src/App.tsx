@@ -3,15 +3,17 @@ import { MainForm } from './components/Subscriptions/MainForm'
 import Sample from './components/Sample'
 import { Input, InputErrorMessage, InputLabel } from './shared-components/Input'
 import { useState } from 'react'
+import { YupForm } from './components/yup-example/YupForm'
+import { SampleUseFormState } from './components/use-form-state/SampleUseFormState'
 
 function App() {
   const [value, setValue] = useState<string>()
   return (
     <>
       <div className="flex my-10 gap-y-6 flex-col items-center">
-        <Form101 />
+        {/* <Form101 />
 
-        <MainForm />
+        <MainForm /> */}
 
         {/* <Sample>
           Sample
@@ -24,6 +26,10 @@ function App() {
           <InputLabel>Input A</InputLabel>
           <InputErrorMessage>Error</InputErrorMessage>
         </Input> */}
+
+        {/* <YupForm /> */}
+
+        <SampleUseFormState />
       </div>
     </>
   )

@@ -14,7 +14,8 @@
     "final-form": "^4.20.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-final-form": "^6.5.9"
+    "react-final-form": "^6.5.9",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
